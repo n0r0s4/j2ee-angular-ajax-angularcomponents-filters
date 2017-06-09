@@ -1,0 +1,53 @@
+<form name="purchaseManagement" ng-submit="purchaseCtrl.addPurchase()" novalidate>
+    <h2>Purchase a product</h2>
+            <div class="form-group">
+                <label>Select the product*</label>
+               
+                    <select id="product" ng-options="product as product.name for product in productsArray 
+                        track by product.id"
+                        ng-model="productToSell">
+                    </select>
+                    
+            </div>
+    <div class="form-group">
+                <label>Desired delivery date*</label>
+                    <p class="input-group">
+                        <input type="text" class="form-control" id="deliveryDate"
+                               uib-datepicker-popup="{{format}}"
+                               is-open="deliveryDate.opened"
+                               datepicker-options="dateOptions"
+                               alt-input-formats="altInputFormats"
+                               close-text="Close"
+                               ng-required="true"
+                               ng-model="purchase.deliveryDate"
+                               readonly/>
+                        <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="openDeliveryDate()"><i class="glyphicon glyphicon-calendar"></i></button>
+                        </span>
+                    </p>
+    </div>
+    <div class="form-group">
+                <label>Price</label>
+                    <input class="form-control" type="text" id="productPrice" ng-model="productToSell.price" ng-currency readonly/>
+    </div>
+    <div class="form-group">
+                <label>Special requests</label>
+                    <div ng-repeat="specialRequest in specialRequests">
+                        <input type="checkbox" id="specialReq{{$index}}" ng-click="specialReqMng($index)"/> {{specialRequest}} <br>
+                    </div>
+                </div>
+    <div class="form-group">
+                <label>Special intructions</label><br/>
+                    <textarea ng-model="purchase.specialInstructions" id="specialIntructions" style="width: 300px; height: 100px"></textarea>
+            </div>
+            <div class="form-group">
+                <div>
+                    <button ng-disabled="purchaseManagement.$invalid" class="btn btn-succes btn-primary btn-block">
+                        Purchase
+                    </button>
+                </div>
+            </div>
+                <div class="form-group">
+                        <input class="btn btn-default btn-primary btn-block" type="button" value="Back" ng-click="showForm = 0">
+                </div>
+</form>
